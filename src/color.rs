@@ -1,4 +1,4 @@
-/// Represents a single Line in 2 dimensions
+/// Represents a color using red, green, blue, and alpha (transparency) values.
 #[derive(Copy, Clone)]
 pub struct Color {
     /// The red component of the color.
