@@ -1,3 +1,5 @@
+mod color;
+
 use uuid::Uuid;
 use serde_json;
 use std::fs;
