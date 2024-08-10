@@ -1,5 +1,8 @@
+use serde::{Deserialize, Serialize};
+use serde_json::to_string;
+
 /// Represents a color using red, green, blue, and alpha (transparency) values.
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Deserialize, Serialize)]
 pub struct Color {
     /// The red component of the color.
     r: i32,
@@ -81,5 +84,14 @@ mod tests {
         let b = Color::new(10, 201, 35, 43);
         assert_eq!(a.eq(&b), false);
         assert_eq!(b.eq(&a), false);
+    }
+
+    #[test]
+    fn test_to_json() {
+        let input = Color::new(11, 22, 33, 44);
+        let input_serialized = to_string(&input);
+        assert_eq!(input_serialized.is_ok(), true);
+        let input_serialized_string = input_serialized.ok().unwrap();
+        assert_eq!(input_serialized_string, "{\"r\":11,\"g\":22,\"b\":33,\"a\":44}");
     }
 }
