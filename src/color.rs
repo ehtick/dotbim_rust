@@ -27,6 +27,7 @@ impl Color {
 
 #[cfg(test)]
 mod tests {
+    use serde_json::from_str;
     use super::*;
 
     #[test]
@@ -93,5 +94,15 @@ mod tests {
         assert_eq!(input_serialized.is_ok(), true);
         let input_serialized_string = input_serialized.ok().unwrap();
         assert_eq!(input_serialized_string, "{\"r\":11,\"g\":22,\"b\":33,\"a\":44}");
+    }
+
+    #[test]
+    fn test_from_json() {
+        let json = "{\"r\":11,\"g\":22,\"b\":33,\"a\":44}";
+        let actual_result = from_str::<Color>(json);
+        assert_eq!(actual_result.is_ok(), true);
+        let actual = actual_result.ok().unwrap();
+        let expected = Color::new(11, 22, 33, 44);
+        assert_eq!(expected.eq(&actual), true);
     }
 }
