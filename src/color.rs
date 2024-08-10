@@ -34,4 +34,52 @@ mod tests {
         assert_eq!(result.b, 33);
         assert_eq!(result.a, 44);
     }
+
+    #[test]
+    fn test_partialeq_color_true() {
+        let a = Color::new(11, 22, 33, 44);
+        let b = Color::new(11, 22, 33, 44);
+        assert_eq!(a.eq(&b), true);
+        assert_eq!(b.eq(&a), true);
+    }
+
+    #[test]
+    fn test_partialeq_color_first_different_false() {
+        let a = Color::new(11, 22, 33, 44);
+        let b = Color::new(10, 22, 33, 44);
+        assert_eq!(a.eq(&b), false);
+        assert_eq!(b.eq(&a), false);
+    }
+
+    #[test]
+    fn test_partialeq_color_second_different_false() {
+        let a = Color::new(11, 22, 33, 44);
+        let b = Color::new(11, 9, 33, 44);
+        assert_eq!(a.eq(&b), false);
+        assert_eq!(b.eq(&a), false);
+    }
+
+    #[test]
+    fn test_partialeq_color_third_different_false() {
+        let a = Color::new(11, 22, 33, 44);
+        let b = Color::new(11, 22, 5, 44);
+        assert_eq!(a.eq(&b), false);
+        assert_eq!(b.eq(&a), false);
+    }
+
+    #[test]
+    fn test_partialeq_color_fourth_different_false() {
+        let a = Color::new(11, 22, 33, 44);
+        let b = Color::new(11, 22, 33, 43);
+        assert_eq!(a.eq(&b), false);
+        assert_eq!(b.eq(&a), false);
+    }
+
+    #[test]
+    fn test_partialeq_color_all_different_false() {
+        let a = Color::new(11, 22, 33, 44);
+        let b = Color::new(10, 201, 35, 43);
+        assert_eq!(a.eq(&b), false);
+        assert_eq!(b.eq(&a), false);
+    }
 }
