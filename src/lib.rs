@@ -1,4 +1,5 @@
 mod color;
+mod vector;
 
 use uuid::Uuid;
 use serde_json;
