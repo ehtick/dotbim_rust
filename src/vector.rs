@@ -19,7 +19,7 @@ impl PartialEq for Vector {
 }
 
 impl Vector {
-    /// Returns a new Color
+    /// Returns a new Vector
     pub fn new(x: f64, y: f64, z: f64) -> Vector { Vector { x, y, z } }
 }
 
@@ -29,7 +29,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_new_vector() {
+    fn test_new() {
         let result = Vector::new(1.5, -2.3, 3.9);
         assert_eq!(result.x, 1.5);
         assert_eq!(result.y, -2.3);
@@ -37,7 +37,7 @@ mod tests {
     }
 
     #[test]
-    fn test_partialeq_color_true() {
+    fn test_partialeq_true() {
         let a = Vector::new(1.5, -2.3, 3.9);
         let b = Vector::new(1.5, -2.3, 3.9);
         assert_eq!(a.eq(&b), true);
@@ -45,7 +45,7 @@ mod tests {
     }
 
     #[test]
-    fn test_partialeq_color_first_different_false() {
+    fn test_partialeq_first_different_false() {
         let a = Vector::new(1.5, -2.3, 3.9);
         let b = Vector::new(1.49, -2.3, 3.9);
         assert_eq!(a.eq(&b), false);
@@ -53,7 +53,7 @@ mod tests {
     }
 
     #[test]
-    fn test_partialeq_color_second_different_false() {
+    fn test_partialeq_second_different_false() {
         let a = Vector::new(1.5, -2.3, 3.9);
         let b = Vector::new(1.5, -2.24321, 3.9);
         assert_eq!(a.eq(&b), false);
@@ -61,7 +61,7 @@ mod tests {
     }
 
     #[test]
-    fn test_partialeq_color_third_different_false() {
+    fn test_partialeq_third_different_false() {
         let a = Vector::new(1.5, -2.3, 3.9);
         let b = Vector::new(1.5, -2.3, -4.05);
         assert_eq!(a.eq(&b), false);
@@ -69,7 +69,7 @@ mod tests {
     }
 
     #[test]
-    fn test_partialeq_color_all_different_false() {
+    fn test_partialeq_all_different_false() {
         let a = Vector::new(1.5, -2.3, 3.9);
         let b = Vector::new(-1.5, 5.01, 11.0);
         assert_eq!(a.eq(&b), false);
