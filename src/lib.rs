@@ -1,6 +1,7 @@
 mod color;
 mod vector;
 mod rotation;
+mod mesh;
 
 use uuid::Uuid;
 use serde_json;

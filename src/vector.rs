@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::to_string;
 
 /// Represents a three-dimensional vector with double-precision floating-point coordinates.
-#[derive(Copy, Clone, Deserialize, Serialize)]
+#[derive(Deserialize, Serialize)]
 pub struct Vector {
     /// The x-coordinate of the vector.
     x: f64,

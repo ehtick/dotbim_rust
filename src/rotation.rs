@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::to_string;
 
 /// Represents a rotation in three-dimensional space using a quaternion.
-#[derive(Copy, Clone, Deserialize, Serialize)]
+#[derive(Deserialize, Serialize)]
 pub struct Rotation {
     /// The x-coordinate of the quaternion.
     qx: f64,

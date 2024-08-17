@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::to_string;
 
 /// Represents a color using red, green, blue, and alpha (transparency) values.
-#[derive(Copy, Clone, Deserialize, Serialize)]
+#[derive(Deserialize, Serialize)]
 pub struct Color {
     /// The red component of the color.
     r: i32,
