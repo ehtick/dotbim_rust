@@ -2,6 +2,7 @@ mod color;
 mod vector;
 mod rotation;
 mod mesh;
+mod element;
 
 use uuid::Uuid;
 use serde_json;
