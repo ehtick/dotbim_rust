@@ -2,6 +2,14 @@
 name = "dotbim_rust"
 version = "0.1.0"
 edition = "2021"
+authors = ["Wojciech Radaczyński"]
+description = "Open-source Rust library for dotbim file format."
+homepage = "https://dotbim.net/"
+repository = "https://github.com/paireks/dotbim_rust"
+license = "MIT"
+readme = "README.md"
+categories = ["rendering::data-formats", "parser-implementations"]
+keywords = ["dotbim", "AEC", "BIM"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
