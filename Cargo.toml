@@ -10,6 +10,10 @@ license = "MIT"
 readme = "README.md"
 categories = ["rendering::data-formats", "parser-implementations"]
 keywords = ["dotbim", "AEC", "BIM"]
+exclude = [
+    "created_files",
+    ".idea"
+]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
