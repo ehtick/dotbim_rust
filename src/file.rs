@@ -136,6 +136,299 @@ mod tests {
     }
 
     #[test]
+    fn test_partial_eq_true() {
+        let a = get_file_with_triangle_blue_plate();
+        let b = get_file_with_triangle_blue_plate();
+        assert_eq!(a.eq(&b), true);
+        assert_eq!(b.eq(&a), true);
+    }
+
+    #[test]
+    fn test_partial_eq_different_schema_version_false() {
+        let a = get_file_with_triangle_blue_plate();
+
+        let mut file_info: HashMap<String, String> = HashMap::new();
+        file_info.insert(String::from("Author"), String::from("Jane Doe"));
+
+        let mut info: HashMap<String, String> = HashMap::new();
+        info.insert(String::from("Name"), String::from("Triangle"));
+
+        let b = File::new(
+            String::from("Different"),
+            vec![
+                Mesh::new(
+                    0,
+                    vec![
+                        0.0,0.0,0.0,
+                        10.0,0.0,0.0,
+                        10.0,-15.0,0.0
+                    ],
+                    vec![
+                        0,1,2
+                    ]
+                )
+            ],
+            vec![
+                Element::new(
+                    0,
+                    Vector::new(0.,0.,0.),
+                    Rotation::new(0.,0.,0.,1.0),
+                    String::from("d4f28792-e1e9-4e31-bcee-740dbda61e20"),
+                    String::from("Plate"),
+                    Color::new(0,120,120,255),
+                    None,
+                    info
+                )
+            ],
+            file_info
+        );
+
+        assert_eq!(a.eq(&b), false);
+        assert_eq!(b.eq(&a), false);
+    }
+
+    #[test]
+    fn test_partial_eq_different_meshes_count_false() {
+        let a = get_file_with_triangle_blue_plate();
+
+        let mut file_info: HashMap<String, String> = HashMap::new();
+        file_info.insert(String::from("Author"), String::from("Jane Doe"));
+
+        let mut info: HashMap<String, String> = HashMap::new();
+        info.insert(String::from("Name"), String::from("Triangle"));
+
+        let b = File::new(
+            String::from("1.0.0"),
+            vec![
+                Mesh::new(
+                    0,
+                    vec![
+                        0.0,0.0,0.0,
+                        10.0,0.0,0.0,
+                        10.0,-15.0,0.0
+                    ],
+                    vec![
+                        0,1,2
+                    ],
+                ),
+                Mesh::new(
+                    1,
+                    vec![
+                        0.0,0.0,0.0,
+                        10.0,0.0,0.0,
+                        10.0,-15.0,0.0
+                    ],
+                    vec![
+                        0,1,2
+                    ],
+                )
+            ],
+            vec![
+                Element::new(
+                    0,
+                    Vector::new(0.,0.,0.),
+                    Rotation::new(0.,0.,0.,1.0),
+                    String::from("d4f28792-e1e9-4e31-bcee-740dbda61e20"),
+                    String::from("Plate"),
+                    Color::new(0,120,120,255),
+                    None,
+                    info
+                )
+            ],
+            file_info
+        );
+
+        assert_eq!(a.eq(&b), false);
+        assert_eq!(b.eq(&a), false);
+    }
+
+    #[test]
+    fn test_partial_eq_different_mesh_false() {
+        let a = get_file_with_triangle_blue_plate();
+
+        let mut file_info: HashMap<String, String> = HashMap::new();
+        file_info.insert(String::from("Author"), String::from("Jane Doe"));
+
+        let mut info: HashMap<String, String> = HashMap::new();
+        info.insert(String::from("Name"), String::from("Triangle"));
+
+        let b = File::new(
+            String::from("1.0.0"),
+            vec![
+                Mesh::new(
+                    0,
+                    vec![
+                        0.0,0.0,0.0,
+                        10.0,0.0,0.0,
+                        10.0,-15.0,0.0
+                    ],
+                    vec![
+                        0,2,1 // Different
+                    ]
+                )
+            ],
+            vec![
+                Element::new(
+                    0,
+                    Vector::new(0.,0.,0.),
+                    Rotation::new(0.,0.,0.,1.0),
+                    String::from("d4f28792-e1e9-4e31-bcee-740dbda61e20"),
+                    String::from("Plate"),
+                    Color::new(0,120,120,255),
+                    None,
+                    info
+                )
+            ],
+            file_info
+        );
+
+        assert_eq!(a.eq(&b), false);
+        assert_eq!(b.eq(&a), false);
+    }
+
+    #[test]
+    fn test_partial_eq_different_elements_count_false() {
+        let a = get_file_with_triangle_blue_plate();
+
+        let mut file_info: HashMap<String, String> = HashMap::new();
+        file_info.insert(String::from("Author"), String::from("Jane Doe"));
+
+        let mut info: HashMap<String, String> = HashMap::new();
+        info.insert(String::from("Name"), String::from("Triangle"));
+
+        let b = File::new(
+            String::from("1.0.0"),
+            vec![
+                Mesh::new(
+                    0,
+                    vec![
+                        0.0,0.0,0.0,
+                        10.0,0.0,0.0,
+                        10.0,-15.0,0.0
+                    ],
+                    vec![
+                        0,1,2
+                    ]
+                )
+            ],
+            vec![
+                Element::new(
+                    0,
+                    Vector::new(0.,0.,0.),
+                    Rotation::new(0.,0.,0.,1.0),
+                    String::from("d4f28792-e1e9-4e31-bcee-740dbda61e20"),
+                    String::from("Plate"),
+                    Color::new(0,120,120,255),
+                    None,
+                    info.clone()
+                ),
+                Element::new(
+                    0,
+                    Vector::new(100.,0.,0.),
+                    Rotation::new(0.,0.,0.,1.0),
+                    String::from("882ccb70-9925-4a10-82af-07c6fa2be5e7"),
+                    String::from("Plate"),
+                    Color::new(0,120,120,255),
+                    None,
+                    info.clone()
+                )
+            ],
+            file_info
+        );
+
+        assert_eq!(a.eq(&b), false);
+        assert_eq!(b.eq(&a), false);
+    }
+
+    #[test]
+    fn test_partial_eq_different_element_false() {
+        let a = get_file_with_triangle_blue_plate();
+
+        let mut file_info: HashMap<String, String> = HashMap::new();
+        file_info.insert(String::from("Author"), String::from("Jane Doe"));
+
+        let mut info: HashMap<String, String> = HashMap::new();
+        info.insert(String::from("Name"), String::from("Triangle"));
+
+        let b = File::new(
+            String::from("1.0.0"),
+            vec![
+                Mesh::new(
+                    0,
+                    vec![
+                        0.0,0.0,0.0,
+                        10.0,0.0,0.0,
+                        10.0,-15.0,0.0
+                    ],
+                    vec![
+                        0,1,2
+                    ]
+                )
+            ],
+            vec![
+                Element::new(
+                    0,
+                    Vector::new(0.,0.,0.),
+                    Rotation::new(0.,0.,0.,1.0),
+                    String::from("d4f28792-e1e9-4e31-bcee-740dbda61e20"),
+                    String::from("Something else"), // Different
+                    Color::new(0,120,120,255),
+                    None,
+                    info
+                )
+            ],
+            file_info
+        );
+
+        assert_eq!(a.eq(&b), false);
+        assert_eq!(b.eq(&a), false);
+    }
+
+    #[test]
+    fn test_partial_eq_different_file_info_false() {
+        let a = get_file_with_triangle_blue_plate();
+
+        let mut file_info: HashMap<String, String> = HashMap::new();
+        file_info.insert(String::from("Author"), String::from("John Doe")); // different
+
+        let mut info: HashMap<String, String> = HashMap::new();
+        info.insert(String::from("Name"), String::from("Triangle"));
+
+        let b = File::new(
+            String::from("1.0.0"),
+            vec![
+                Mesh::new(
+                    0,
+                    vec![
+                        0.0,0.0,0.0,
+                        10.0,0.0,0.0,
+                        10.0,-15.0,0.0
+                    ],
+                    vec![
+                        0,1,2
+                    ]
+                )
+            ],
+            vec![
+                Element::new(
+                    0,
+                    Vector::new(0.,0.,0.),
+                    Rotation::new(0.,0.,0.,1.0),
+                    String::from("d4f28792-e1e9-4e31-bcee-740dbda61e20"),
+                    String::from("Plate"),
+                    Color::new(0,120,120,255),
+                    None,
+                    info
+                )
+            ],
+            file_info
+        );
+
+        assert_eq!(a.eq(&b), false);
+        assert_eq!(b.eq(&a), false);
+    }
+
+    #[test]
     fn test_to_json() {
         let input = get_file_with_triangle_blue_plate();
         let input_serialized = to_string(&input);
