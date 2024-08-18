@@ -3,6 +3,7 @@ mod vector;
 mod rotation;
 mod mesh;
 mod element;
+mod file;
 
 use uuid::Uuid;
 use serde_json;
