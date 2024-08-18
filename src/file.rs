@@ -52,7 +52,8 @@ impl File {
 
 #[cfg(test)]
 mod tests {
-    use serde_json::from_str;
+    use std::fs;
+    use serde_json::{from_str, from_value};
     use crate::color::Color;
     use crate::rotation::Rotation;
     use crate::vector::Vector;
@@ -445,5 +446,73 @@ mod tests {
         let actual = actual_result.ok().unwrap();
         let expected = get_file_with_triangle_blue_plate();
         assert_eq!(expected.eq(&actual), true);
+    }
+
+    #[test]
+    fn test_create_and_read_pyramid() {
+        let mesh = Mesh::new(
+            0,
+            vec![
+                // Base
+                0.0,0.0,0.0,
+                10.0,0.0,0.0,
+                10.0,10.0,0.0,
+                0.0,10.0,0.0,
+
+                // Top
+                5.0,5.0,4.0
+            ],
+            vec![
+                // Base faces
+                0,1,2,
+                0,2,3,
+
+                // Side faces
+                0,1,4,
+                1,2,4,
+                2,3,4,
+                3,0,4
+            ]
+        );
+
+        let mut info: HashMap<String, String> = HashMap::new();
+        info.insert(String::from("Name"), String::from("Pyramid"));
+
+        let mut file_info: HashMap<String, String> = HashMap::new();
+        file_info.insert(String::from("Author"), String::from("John Doe"));
+        file_info.insert(String::from("Date"), String::from("28.09.1999"));
+
+        let element = Element::new(
+            0,
+            Vector::new(0.,0.,0.),
+            Rotation::new(0., 0., 0., 1.),
+            String::from("76e051c1-1bd7-44fc-8e2e-db2b64055068"),
+            String::from("Structure"),
+            Color::new(255,255,0,255),
+            None,
+            info,
+        );
+
+        let file: File = File::new(String::from("1.0.0"),
+                             vec![mesh],
+                             vec![element],
+                             file_info);
+
+        let file_serialized = to_string(&file);
+        assert_eq!(file_serialized.is_ok(), true);
+
+        let file_serialized_string = file_serialized.ok().unwrap();
+
+        let path = "created_files/Pyramid.bim";
+
+        fs::write(path, file_serialized_string).expect("Unable to write the file");
+
+        let read_file = fs::File::open(path).expect("Cannot read the file");
+
+        let json: serde_json::Value = serde_json::from_reader(read_file).expect("File has to be a proper JSON file");
+
+        let read_file_unpacked: File = from_value(json).unwrap();
+
+        assert_eq!(file.eq(&read_file_unpacked), true);
     }
 }
