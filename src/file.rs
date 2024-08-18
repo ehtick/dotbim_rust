@@ -625,4 +625,136 @@ mod tests {
         assert_eq!(file.eq(&read_file_unpacked), true);
     }
 
+    #[test]
+    fn test_create_and_read_cubes_with_face_colors_and_without() {
+        let mesh = Mesh::new(
+            0,
+            vec![
+                0.0, 0.0, 0.0,
+                10.0, 0.0, 0.0,
+                10.0, 0.0, 20.0,
+                0.0, 0.0, 20.0,
+                0.0, 30.0, 0.0,
+                10.0, 30.0, 0.0,
+                10.0, 30.0, 20.0,
+                0.0, 30.0, 20.0
+            ],
+            vec![
+                // Front side
+                0, 1, 2,
+                0, 2, 3,
+
+                // Bottom side
+                0, 1, 4,
+                1, 4, 5,
+
+                // Left side
+                0, 4, 3,
+                4, 3, 7,
+
+                // Right side
+                1, 2, 5,
+                2, 5, 6,
+
+                // Top side
+                2, 3, 7,
+                2, 6, 7,
+
+                // Back side
+                4, 5, 7,
+                5, 6, 7
+            ]
+        );
+
+        let mut info1: HashMap<String, String> = HashMap::new();
+        info1.insert(String::from("Name"), String::from("Red Cube"));
+
+        let mut info2: HashMap<String, String> = HashMap::new();
+        info2.insert(String::from("Name"), String::from("Multicolor Cube"));
+
+        let mut info3: HashMap<String, String> = HashMap::new();
+        info3.insert(String::from("Name"), String::from("Blue Cube"));
+
+        let mut file_info: HashMap<String, String> = HashMap::new();
+        file_info.insert(String::from("Author"), String::from("John Doe"));
+
+        let element1 = Element::new(
+            0,
+            Vector::new(-100.,-100.,-100.),
+            Rotation::new(0., 0., 0., 1.),
+            String::from("9f61b565-06a2-4bef-8b72-f37091ab54d6"),
+            String::from("Brick"),
+            Color::new(255,0,0,255),
+            None,
+            info1,
+        );
+
+        let element2 = Element::new(
+            0,
+            Vector::new(0.,0.,0.),
+            Rotation::new(0., 0., 0., 1.),
+            String::from("4d00c967-791a-42a6-a5e8-cf05831bc11d"),
+            String::from("Brick"),
+            Color::new(0,255,0,126),
+            Some(vec![
+                // Front side
+                255, 105, 180, 150, // Hot pink with transparency
+                255, 192, 203, 255, // Pink
+
+                // Bottom side
+                53, 57, 53, 255, // Onyx
+                0, 0, 0, 255, // Black
+
+                // Left side
+                243, 229, 171, 255, // Vanilla
+                255, 255, 0, 255, // Yellow
+
+                // Right side
+                9, 121, 105, 255, // Cadmium Green
+                0, 128, 0, 255, // Green
+
+                // Top side
+                0, 255, 255, 255, // Cyan
+                0, 0, 255, 255, // Blue
+
+                // Back side
+                226, 223, 210, 255, // Pearl
+                255, 255, 255, 255, // White
+            ]),
+            info2,
+        );
+
+        let element3 = Element::new(
+            0,
+            Vector::new(100.,100.,100.),
+            Rotation::new(0., 0., 0., 1.),
+            String::from("8501a5e3-4709-47d8-bd5d-33d745a435d5"),
+            String::from("Brick"),
+            Color::new(0,0,255,10),
+            None,
+            info3,
+        );
+
+        let file: File = File::new(String::from("1.1.0"),
+                                   vec![mesh],
+                                   vec![element1, element2, element3],
+                                   file_info);
+
+        let file_serialized = to_string(&file);
+        assert_eq!(file_serialized.is_ok(), true);
+
+        let file_serialized_string = file_serialized.ok().unwrap();
+
+        let path = "created_files/CubesWithFaceColorsAndWithout.bim";
+
+        fs::write(path, file_serialized_string).expect("Unable to write the file");
+
+        let read_file = fs::File::open(path).expect("Cannot read the file");
+
+        let json: serde_json::Value = serde_json::from_reader(read_file).expect("File has to be a proper JSON file");
+
+        let read_file_unpacked: File = from_value(json).unwrap();
+
+        assert_eq!(file.eq(&read_file_unpacked), true);
+    }
 }
