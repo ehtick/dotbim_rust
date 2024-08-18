@@ -5,11 +5,11 @@ use serde_json::to_string;
 #[derive(Deserialize, Serialize)]
 pub struct Mesh {
     /// The identifier for the mesh. The value of MeshId should be greater than or equal to 0.
-    mesh_id: i32,
+    pub mesh_id: i32,
     /// The list of coordinates for the mesh vertices.
-    coordinates: Vec<f64>,
+    pub coordinates: Vec<f64>,
     /// The list of indices for the mesh triangles.
-    indices: Vec<i32>,
+    pub indices: Vec<i32>,
 }
 
 impl PartialEq for Mesh {

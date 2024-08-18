@@ -5,13 +5,13 @@ use serde_json::to_string;
 #[derive(Deserialize, Serialize)]
 pub struct Color {
     /// The red component of the color.
-    r: i32,
+    pub r: i32,
     /// The green component of the color.
-    g: i32,
+    pub g: i32,
     /// The blue component of the color.
-    b: i32,
+    pub b: i32,
     /// The alpha (transparency) component of the color.
-    a: i32,
+    pub a: i32,
 }
 
 impl PartialEq for Color {

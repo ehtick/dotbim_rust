@@ -8,13 +8,13 @@ use crate::mesh::Mesh;
 #[derive(Deserialize, Serialize)]
 pub struct File {
     /// The schema version of the BIM file.
-    schema_version: String,
+    pub schema_version: String,
     /// The list of meshes in the file.
-    meshes: Vec<Mesh>,
+    pub meshes: Vec<Mesh>,
     /// The list of elements in the file.
-    elements: Vec<Element>,
+    pub elements: Vec<Element>,
     /// Additional information about the file.
-    info: HashMap<String, String>
+    pub info: HashMap<String, String>
 }
 
 impl PartialEq for File {

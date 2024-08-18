@@ -9,18 +9,18 @@ use crate::vector::Vector;
 #[derive(Deserialize, Serialize)]
 pub struct Element {
     /// The identifier of the mesh associated with the element.
-    mesh_id: i32,
+    pub mesh_id: i32,
     /// The position of the element.
-    vector: Vector,
+    pub vector: Vector,
     /// The rotation of the element.
-    rotation: Rotation,
+    pub rotation: Rotation,
     /// The globally unique identifier for the element.
-    guid: String,
+    pub guid: String,
     /// The type of the element.
     #[serde(rename(serialize = "type", deserialize = "type"))]
-    element_type: String,
+    pub element_type: String,
     /// The color of the element.
-    color: Color,
+    pub color: Color,
     /// The list of integers, that determine face colors of a mesh.
     /// They should be organized like this: [r1, g1, b1, a1, r2, g2, b2, a2, r3, g3, b3, a3, ... rn, gn, bn, an]
     /// E.g. list like: [255, 0, 0, 255, 135, 206, 235, 255, 255, 255, 255, 255]
@@ -28,9 +28,9 @@ pub struct Element {
     /// second as skyblue (135,206,235,255),
     /// third as white (255,255,255,255).
     #[serde(skip_serializing_if = "Option::is_none")]
-    face_colors: Option<Vec<i32>>,
+    pub face_colors: Option<Vec<i32>>,
     /// Additional information about the element.
-    info: HashMap<String, String>
+    pub info: HashMap<String, String>
 }
 
 impl PartialEq for Element {

@@ -5,13 +5,13 @@ use serde_json::to_string;
 #[derive(Deserialize, Serialize)]
 pub struct Rotation {
     /// The x-coordinate of the quaternion.
-    qx: f64,
+    pub qx: f64,
     /// The y-coordinate of the quaternion.
-    qy: f64,
+    pub qy: f64,
     /// The z-coordinate of the quaternion.
-    qz: f64,
+    pub qz: f64,
     /// The w-coordinate of the quaternion.
-    qw: f64
+    pub qw: f64
 }
 
 impl PartialEq for Rotation {

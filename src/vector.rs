@@ -5,11 +5,11 @@ use serde_json::to_string;
 #[derive(Deserialize, Serialize)]
 pub struct Vector {
     /// The x-coordinate of the vector.
-    x: f64,
+    pub x: f64,
     /// The y-coordinate of the vector.
-    y: f64,
+    pub y: f64,
     /// The z-coordinate of the vector.
-    z: f64
+    pub z: f64
 }
 
 impl PartialEq for Vector {
