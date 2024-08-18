@@ -88,12 +88,11 @@ mod tests {
     use serde_json::from_str;
     use super::*;
 
-    #[test]
-    fn test_new_without_face_colors() {
+    fn get_blue_test_element() -> Element {
         let mut info: HashMap<String, String> = HashMap::new();
         info.insert(String::from("Key"), String::from("Value"));
 
-        let result = Element::new(
+        Element::new(
             4,
             Vector::new(0.2, 0.3, 0.4),
             Rotation::new(1.0, 1.5, 2.0, 2.5),
@@ -102,7 +101,15 @@ mod tests {
             Color::new(0,0,255,0),
             None,
             info.clone(),
-        );
+        )
+    }
+
+    #[test]
+    fn test_new_without_face_colors() {
+        let mut info: HashMap<String, String> = HashMap::new();
+        info.insert(String::from("Key"), String::from("Value"));
+
+        let result = get_blue_test_element();
 
         assert_eq!(result.mesh_id, 4);
         assert_eq!(Vector::new(0.2, 0.3, 0.4).eq(&result.vector), true);
@@ -115,19 +122,7 @@ mod tests {
     }
     #[test]
     fn test_to_json() {
-        let mut info: HashMap<String, String> = HashMap::new();
-        info.insert(String::from("Key"), String::from("Value"));
-
-        let input = Element::new(
-            4,
-            Vector::new(0.2, 0.3, 0.4),
-            Rotation::new(1.0, 1.5, 2.0, 2.5),
-            String::from("b8a7a2ed-0c30-4c20-867e-baa1ef7b8353"),
-            String::from("Plate"),
-            Color::new(0,0,255,0),
-            None,
-            info,
-        );
+        let input = get_blue_test_element();
         let input_serialized = to_string(&input);
         assert_eq!(input_serialized.is_ok(), true);
         let input_serialized_string = input_serialized.ok().unwrap();
@@ -141,18 +136,7 @@ mod tests {
         // println!("{}", actual_result.err().unwrap());
         assert_eq!(actual_result.is_ok(), true);
         let actual = actual_result.ok().unwrap();
-        let mut info: HashMap<String, String> = HashMap::new();
-        info.insert(String::from("Key"), String::from("Value"));
-        let expected = Element::new(
-            4,
-            Vector::new(0.2, 0.3, 0.4),
-            Rotation::new(1.0, 1.5, 2.0, 2.5),
-            String::from("b8a7a2ed-0c30-4c20-867e-baa1ef7b8353"),
-            String::from("Plate"),
-            Color::new(0,0,255,0),
-            None,
-            info,
-        );
+        let expected = get_blue_test_element();
         assert_eq!(expected.eq(&actual), true);
     }
 }
