@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use serde_json::to_string;
 
 /// Represents a rotation in three-dimensional space using a quaternion.
 #[derive(Deserialize, Serialize)]
@@ -28,6 +27,7 @@ impl Rotation {
 #[cfg(test)]
 mod tests {
     use serde_json::from_str;
+    use serde_json::to_string;
     use super::*;
 
     #[test]

@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use serde_json::to_string;
 
 /// Represents a mesh object in three-dimensional space.
 #[derive(Deserialize, Serialize)]
@@ -46,6 +45,7 @@ impl Mesh {
 #[cfg(test)]
 mod tests {
     use serde_json::from_str;
+    use serde_json::to_string;
     use super::*;
 
     #[test]

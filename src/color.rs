@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use serde_json::to_string;
 
 /// Represents a color using red, green, blue, and alpha (transparency) values.
 #[derive(Deserialize, Serialize)]
@@ -27,6 +26,7 @@ impl Color {
 
 #[cfg(test)]
 mod tests {
+    use serde_json::to_string;
     use serde_json::from_str;
     use super::*;
 

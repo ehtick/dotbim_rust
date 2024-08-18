@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
-use serde_json::to_string;
 use crate::color::Color;
 use crate::rotation::Rotation;
 use crate::vector::Vector;
@@ -89,6 +88,7 @@ impl Element {
 
 #[cfg(test)]
 mod tests {
+    use serde_json::to_string;
     use serde_json::from_str;
     use super::*;
 

@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
-use serde_json::to_string;
 use crate::element::Element;
 use crate::mesh::Mesh;
 
@@ -54,6 +53,7 @@ impl File {
 mod tests {
     use std::fs;
     use serde_json::{from_str, from_value};
+    use serde_json::to_string;
     use crate::color::Color;
     use crate::rotation::Rotation;
     use crate::vector::Vector;
