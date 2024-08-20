@@ -93,3 +93,4 @@ It should be like that:
 ## Libraries used
 
 - For json serialization it uses serde, serde_json: https://serde.rs/
+- For guid creation it uses uuid: https://github.com/uuid-rs/uuid
