@@ -2,7 +2,7 @@
 
 ## Description
 
-Open-source Rust library for dotbim file format.
+Open-source library for dotbim file format written in Rust language.
 
 Read more about dotbim here: https://github.com/paireks/dotbim
 
