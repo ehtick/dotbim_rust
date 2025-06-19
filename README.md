@@ -10,6 +10,8 @@ dotbim's website: https://dotbim.net/
 
 Here you can find small manual for developers regarding development of tools that will work with .bim file format: https://github.com/paireks/dotbim/blob/master/DeveloperTips.md
 
+This library contains only the simple dotbim schema described in Rust programming language. Check out also the meshmeshmesh engine project: https://github.com/paireks/meshmeshmesh, which natively works on dotbim and has slightly different schema definition, but much more options.
+
 ## Installation
 
 https://crates.io/crates/dotbim_rust
